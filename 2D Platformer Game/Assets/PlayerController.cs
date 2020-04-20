@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
+    private enum State {idle, running, jumping}
+    private State state = State.idle;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -15,30 +18,53 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+
+
         float hDirection = Input.GetAxis("Horizontal");
 
-        if(hDirection < 0)
+        if(hDirection < 0)//Keybind for left move
         {
             rb.velocity = new Vector2(-4, rb.velocity.y);
             transform.localScale = new Vector2(-1, 1);
-            anim.SetBool("running", true);
         }
 
-        else if (hDirection > 0)
+        else if (hDirection > 0)//Keybind for right move
         {
             rb.velocity = new Vector2(4, rb.velocity.y);
             transform.localScale = new Vector2(1, 1);
-            anim.SetBool("running", true);
+        }
+
+        else//Going into "idle" state
+        {
+
+        }
+
+        if (Input.GetKey(KeyCode.Space))//Jump key
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 5);
+            state = State.jumping;
+        }
+
+        VelocityState();
+        anim.SetInteger("state", (int)state);
+    }
+
+    private void VelocityState()
+    {
+        if (state == State.jumping)
+        {
+
+        }
+
+        else if (Mathf.Abs(rb.velocity.x) > 2f)
+        {
+            //Moving
+            state = State.running;
         }
 
         else
         {
-            anim.SetBool("running", false);
-        }
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            rb.velocity = new Vector2(rb.velocity.x, 5);
+            state = State.idle;
         }
     }
 }
