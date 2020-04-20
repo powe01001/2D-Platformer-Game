@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    //Start variables
     private Rigidbody2D rb;
     private Animator anim;
+    private Collider2D coll;
+
+    //FSM
     private enum State {idle, running, jumping, falling}
     private State state = State.idle;
-    private Collider2D coll;
+
+    //Inspector variables
     [SerializeField] private LayerMask ground;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float jumpForce = 5f;
 
     private void Start()
     {
@@ -20,38 +27,38 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        Movement();
+        AnimationState();
+        anim.SetInteger("state", (int)state); //Sets animation based on Enumerator state
+    }
 
-
+    private void Movement()
+    {
         float hDirection = Input.GetAxis("Horizontal");
 
-        if(hDirection < 0)//Keybind for left move
+        //Moving Left
+        if (hDirection < 0)
         {
-            rb.velocity = new Vector2(-4, rb.velocity.y);
+            rb.velocity = new Vector2(-speed, rb.velocity.y);
             transform.localScale = new Vector2(-1, 1);
         }
 
-        else if (hDirection > 0)//Keybind for right move
+        //Moving Right
+        else if (hDirection > 0)
         {
-            rb.velocity = new Vector2(4, rb.velocity.y);
+            rb.velocity = new Vector2(speed, rb.velocity.y);
             transform.localScale = new Vector2(1, 1);
         }
 
-        else//Going into "idle" state
+        //Jumping
+        if (Input.GetButtonDown("Jump") && coll.IsTouchingLayers(ground))
         {
-
-        }
-
-        if (Input.GetButtonDown("Jump") && coll.IsTouchingLayers(ground))//Jumping
-        {
-            rb.velocity = new Vector2(rb.velocity.x, 5);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             state = State.jumping;
         }
-
-        VelocityState();
-        anim.SetInteger("state", (int)state);
     }
 
-    private void VelocityState()
+    private void AnimationState()
     {
         if (state == State.jumping)
         {
