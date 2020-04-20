@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    public Animator anim;
+    private Rigidbody2D rb;
+    private Animator anim;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+    }
 
     private void Update()
     {
-        if(Input.GetKey(KeyCode.A))
+        float hDirection = Input.GetAxis("Horizontal");
+
+        if(hDirection < 0)
         {
             rb.velocity = new Vector2(-4, rb.velocity.y);
             transform.localScale = new Vector2(-1, 1);
             anim.SetBool("running", true);
         }
 
-        else if (Input.GetKey(KeyCode.D))
+        else if (hDirection > 0)
         {
             rb.velocity = new Vector2(4, rb.velocity.y);
             transform.localScale = new Vector2(1, 1);
