@@ -583,6 +583,11 @@ PrefabInstance:
       propertyPath: gemText
       value: 
       objectReference: {fileID: 575002834}
+    - target: {fileID: 528315933049737594, guid: 61713eb108d985344baaae6ded5a3b6f,
+        type: 3}
+      propertyPath: jumpForce
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 528315933049737597, guid: 61713eb108d985344baaae6ded5a3b6f,
         type: 3}
       propertyPath: m_LocalPosition.x
