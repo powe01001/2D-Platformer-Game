@@ -795,6 +795,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4753b52ebd4202846841c7b3f83905d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ground:
+    serializedVersion: 2
+    m_Bits: 256
+  speed: 5
+  jumpForce: 5
 --- !u!95 &1347188030
 Animator:
   serializedVersion: 3
@@ -29584,7 +29589,7 @@ GameObject:
   - component: {fileID: 1999820393}
   - component: {fileID: 1999820395}
   - component: {fileID: 1999820394}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
