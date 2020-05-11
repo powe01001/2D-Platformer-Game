@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Collectable script
         if(collision.tag == "Collectable")
         {
             Destroy(collision.gameObject);
@@ -112,7 +113,7 @@ public class PlayerController : MonoBehaviour
     {
         if (state == State.jumping)
         {
-            if (rb.velocity.y < .1f)
+            if (rb.velocity.y < .1f)//.1f = 0.1
             {
                 state = State.falling;
             }
@@ -128,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
         else if(state == State.hurt)
         {
-            if(Mathf.Abs(rb.velocity.x) < .1f)
+            if(Mathf.Abs(rb.velocity.x) < .1f)//.1f = 0.1
             {
                 state = State.idle;
             }
