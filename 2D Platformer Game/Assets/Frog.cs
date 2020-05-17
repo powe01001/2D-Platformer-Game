@@ -28,7 +28,7 @@ public class Frog : MonoBehaviour
         //Transition from Jump to Fall
         if (anim.GetBool("Jumping"))
         {
-            if (rb.velocity.y < .1f)
+            if (rb.velocity.y < 0)
             {
                 anim.SetBool("Falling", true);
                 anim.SetBool("Jumping", false);
