@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int gem = 0;
     [SerializeField] private Text gemText;
     [SerializeField] private float hurtForce = 10f;
+    [SerializeField] private AudioSource gems;
+    [SerializeField] private AudioSource footstep;
 
     private void Start()
     {
@@ -44,6 +46,7 @@ public class PlayerController : MonoBehaviour
         //Collectable script
         if(collision.tag == "Collectable")
         {
+            gems.Play();
             Destroy(collision.gameObject);
             gem ++;
             gemText.text = gem.ToString();
@@ -146,5 +149,10 @@ public class PlayerController : MonoBehaviour
         {
             state = State.idle;
         }
+    }
+
+    private void Footstep()
+    {
+        footstep.Play();
     }
 }
